@@ -1,9 +1,11 @@
 <div class="container mt-5">
-  <mat-form-field>
+  <button class="btn btn-success">Bootstrap 5 Button</button>
+  <div class="my-3">------------------Angular material-------------------------</div>
+
+  <mat-form-field class="example-full-width">
     <mat-label>Favorite food</mat-label>
-    <input matInput placeholder="Ex. Pizza">
+    <input matInput placeholder="Favorite food">
   </mat-form-field>
-  
   <div>
     <button mat-raised-button color="primary" class="my-special-button">Material Button</button>
   </div>
@@ -13,5 +15,105 @@
     <mat-tab label="Second"> Content 2 </mat-tab>
     <mat-tab label="Third"> Content 3 </mat-tab>
   </mat-tab-group>
+
+  <div class="my-3">------------------our project-------------------------</div>
+
+  <form novalidate>
+
+    <mat-form-field name="database">
+      <mat-select disableOptionCentering placeholder=database>
+        <mat-option id="cboDatabase" class="cboDatabase" *ngFor="let p of servers"
+          [value]="p.ServerID">{{p.ServerDesc}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+
+    <mat-form-field>
+      <mat-label>Username</mat-label>
+      <input matInput name="username" placeholder="Username" autocomplete="off">
+    </mat-form-field>
+    <br>
+
+     <mat-form-field>
+      <input matInput name="username" placeholder="'beforeSpace' |translate" autocomplete="off">
+    </mat-form-field>
+    <br>
+
+    <mat-form-field>
+      <input matInput name="username" placeholder="'Space' | translate" autocomplete="off">
+    </mat-form-field>
+    <br>
+
+    <mat-form-field>
+      <input matInput name="username" placeholder="'afterSpace'| translate" autocomplete="off">
+    </mat-form-field>
+    <br>
+
+    <mat-form-field>
+      <input matInput name="username" placeholder="'noSpace'|translate" autocomplete="off">
+    </mat-form-field>
+    <br>
+
+    ----------------------------------------
+    <mat-form-field>
+      <input matInput name="username" placeholder ="'noSpace'|translate" autocomplete="off">
+    </mat-form-field>
+    <br>
+    ----------------------------------------
+     <mat-form-field>
+      <input matInput name="username" placeholder = "'noSpace'|translate" autocomplete="off">
+    </mat-form-field>
+    <br>
+    ----------------------------------------
+
+     <mat-form-field>
+      <input matInput name="username" [placeholder] ="'noSpace'|translate" autocomplete="off">
+    </mat-form-field>
+    <br>
+    ----------------------------------------
+     <mat-form-field>
+      <input matInput name="username" [placeholder]= "'noSpace'|translate" autocomplete="off">
+    </mat-form-field>
+    <br>
+    ----------------------------------------
+
+    <mat-form-field>
+      <input matInput name="username" 
+      placeholder="'withBreak'|translate" autocomplete="off">
+    </mat-form-field>
+    <br>
+
+    <!-- <mat-form-field>
+      <input matInput name="username" 
+      placeholder="'commented'|translate" autocomplete="off">
+    </mat-form-field>
+    <br> -->
+
+    <div>
+      <button mat-raised-button color="accent" type="submit">Login</button>
+    </div>
+
+  </form>
+
+
+  <div class="my-3">------------------for loop material-------------------------</div>
+
+
+  <mat-form-field name="database">
+    <mat-label>Database</mat-label>
+    <mat-select>
+      <mat-option id="cboDatabase" class="cboDatabase" *ngFor="let p of servers"
+        [value]="p.ServerID">{{p.ServerDesc}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Favorite food</mat-label>
+    <mat-select>
+      @for (food of foods; track food) {
+      <mat-option [value]="food.value">{{food.viewValue}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
 
 </div>
