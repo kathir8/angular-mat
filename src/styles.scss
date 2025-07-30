@@ -17,20 +17,24 @@ $my-theme: mat.define-theme($config: (
 
 
 /* ------------------------------ Import Fonts ------------------------------ */
-@font-face {
-  font-family: MyriadPro;
-  src: url("assets/css/fonts/MyriadFont/MyriadPro-Regular.otf");
-  src: url("assets/css/fonts/MyriadFont/MyriadProRegular.eot") format("embedded-opentype"), url(assets/css/fonts/MyriadFont/MyriadProRegular.woff2) format("woff2"), url(assets/css/fonts/MyriadFont/MyriadProRegular.woff) format("woff"), url(assets/css/fonts/MyriadFont/MyriadProRegular.ttf) format("truetype"), url(assets/css/fonts/MyriadFont/MyriadProRegular.svg#MyriadProRegular) format("svg");
-  font-weight: 500; // ✅ This is the key fix
-  font-style: normal;
-  font-display: swap;
-}
+// @font-face {
+//   font-family: MyriadPro;
+//   src: url("assets/css/fonts/MyriadFont/MyriadPro-Regular.otf");
+//   src: url("assets/css/fonts/MyriadFont/MyriadProRegular.eot") format("embedded-opentype"), url(assets/css/fonts/MyriadFont/MyriadProRegular.woff2) format("woff2"), url(assets/css/fonts/MyriadFont/MyriadProRegular.woff) format("woff"), url(assets/css/fonts/MyriadFont/MyriadProRegular.ttf) format("truetype"), url(assets/css/fonts/MyriadFont/MyriadProRegular.svg#MyriadProRegular) format("svg");
+//   font-weight: 500; // ✅ This is the key fix
+//   font-style: normal;
+//   font-display: swap;
+// }
 
 
 /* ---------------------------- Import Fonts end ---------------------------- */
 
-html,body{
-  font-family: "MyriadPro";
+body {
+  height: 100%;
+  font-size: 14px;
+  padding: 20px;
+  margin: 0;
+  font-family: 'Myriad Pro', Montserrat, sans-serif;
 }
 
 .mdc-text-field--filled:not(.mdc-text-field--disabled),
