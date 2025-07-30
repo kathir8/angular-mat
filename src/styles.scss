@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 
-@use '@angular/material' as mat;
+// @use '@angular/material' as mat;
 
 /* ------------------------------ Import Fonts ------------------------------ */
 @font-face {
@@ -115,7 +115,7 @@ $my-app-theme: mat.define-light-theme((
 
 @include mat.all-component-themes($my-app-theme); */
 
-$my-theme: mat.define-theme($config: (
+/* $my-theme: mat.define-theme($config: (
     typography: (plain-family: '"Myriad Pro", sans-serif',
       brand-family: '"Myriad Pro", sans-serif',
     ),
@@ -125,7 +125,7 @@ $my-theme: mat.define-theme($config: (
 :root {
   @include mat.all-component-themes($my-theme);
   @include mat.all-component-typographies($my-theme);
-}
+} */
 
 body {
   height: 100%;
