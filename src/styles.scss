@@ -2,27 +2,26 @@
 
 
 @use '@angular/material' as mat;
-$my-theme: mat.define-theme(
-  $config: (
-    typography: (
-      plain-family: '"MyriadPro", "Montserrat", sans-serif',
-      brand-family: '"MyriadPro", "Montserrat", sans-serif',
+
+$my-theme: mat.define-theme($config: (
+    typography: (plain-family: '"MyriadPro", sans-serif',
+      brand-family: '"MyriadPro", sans-serif',
     ),
   ),
 );
-// @include mat.all-component-themes($my-theme);
 
 :root {
-     @include mat.all-component-themes($my-theme);
+  @include mat.all-component-themes($my-theme);
   @include mat.all-component-typographies($my-theme);
 }
 
+
 /* ------------------------------ Import Fonts ------------------------------ */
 @font-face {
-    font-family: MyriadPro;
-    src: url("assets/css/fonts/MyriadFont/MyriadPro-Regular.otf");
-    src: url("assets/css/fonts/MyriadFont/MyriadProRegular.eot") format("embedded-opentype"), url(assets/css/fonts/MyriadFont/MyriadProRegular.woff2) format("woff2"), url(assets/css/fonts/MyriadFont/MyriadProRegular.woff) format("woff"), url(assets/css/fonts/MyriadFont/MyriadProRegular.ttf) format("truetype"), url(assets/css/fonts/MyriadFont/MyriadProRegular.svg#MyriadProRegular) format("svg");
-     font-weight: 500; // ✅ This is the key fix
+  font-family: MyriadPro;
+  src: url("assets/css/fonts/MyriadFont/MyriadPro-Regular.otf");
+  src: url("assets/css/fonts/MyriadFont/MyriadProRegular.eot") format("embedded-opentype"), url(assets/css/fonts/MyriadFont/MyriadProRegular.woff2) format("woff2"), url(assets/css/fonts/MyriadFont/MyriadProRegular.woff) format("woff"), url(assets/css/fonts/MyriadFont/MyriadProRegular.ttf) format("truetype"), url(assets/css/fonts/MyriadFont/MyriadProRegular.svg#MyriadProRegular) format("svg");
+  font-weight: 500; // ✅ This is the key fix
   font-style: normal;
   font-display: swap;
 }
@@ -30,45 +29,9 @@ $my-theme: mat.define-theme(
 
 /* ---------------------------- Import Fonts end ---------------------------- */
 
-/* $my-app-primary: mat.define-palette((
-  50: #f5f5f5,
-  100: #e0e0e0,
-  200: #d6d6d6,
-  300: #dcdcdc, // Your preferred base
-  400: #c0c0c0,
-  500: #dcdcdc, // Default primary
-  600: #bdbdbd,
-  700: #0096bb, // Hover shade
-  800: #9e9e9e,
-  900: #7d7d7d,
-  contrast: (
-    50: #000,
-    100: #000,
-    200: #000,
-    300: #414141,
-    400: #000,
-    500: #414141,
-    600: #000,
-    700: #fff,
-    800: #fff,
-    900: #fff
-  )
-));
-
-$my-app-primary: mat.define-palette(mat.$green-palette);
-$my-app-accent: mat.define-palette(mat.$orange-palette, 700);
-$my-app-warn: mat.define-palette(mat.$red-palette);
-
-$my-app-theme: mat.define-light-theme((
-  color: (
-    primary: $my-app-primary,
-    accent: $my-app-accent,
-    warn: $my-app-warn,
-  )
-));
-
-@include mat.all-component-themes($my-app-theme); */
-
+html,body{
+  font-family: "MyriadPro";
+}
 
 .mdc-text-field--filled:not(.mdc-text-field--disabled),
 .mat-mdc-form-field-focus-overlay {
