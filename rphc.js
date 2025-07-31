@@ -15,10 +15,13 @@ files.forEach(file => {
         let updatedInner = innerContent;
        if(!innerContent.includes("<mat-label")){
            // Within the block, replace any <input … placeholder="…"> 
-           updatedInner = innerContent.replace(
-             // Capture indentation, pre-attributes, quote type, placeholder value, post-attributes
-             /(^\s*)<input\b([^>]*?)\splaceholder\s*=\s*(['"])(.*?)\3([^>]*?)>/gm,
-             (_, indent, preAttrs, _q, placeholderValue, postAttrs) => {
+          updatedInner = innerContent.replace(
+    /(^\s*)<input\b([^>]*?)\s(?:placeholder\s*=\s*(['"])(.*?)\3|\[placeholder\]\s*=\s*(['"])(.*?)\5)([^>]*?)>/gm,
+    (_, indent, preAttrs, q1, placeholderValue1, q2, placeholderValue2, postAttrs) => {
+        // Use whichever placeholder value was matched
+        const placeholderValue = placeholderValue1 || placeholderValue2;
+        const quote = q1 || q2;
+        
                // Build label + cleaned input
                const ph = placeholderValue.trim();
                const isTranslateAvailable = ph.includes('|');
