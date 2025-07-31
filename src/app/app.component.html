@@ -16,6 +16,23 @@
     <mat-tab label="Third"> Content 3 </mat-tab>
   </mat-tab-group>
 
+  <div class="my-3">------------------Existing-------------------------</div>
+
+    <mat-form-field>
+      <input matInput name="username" placeholder="Username" autocomplete="off">
+    </mat-form-field>
+    <br>
+
+    <mat-form-field>
+      <input matInput name="username" placeholder="'beforeSpace' |translate" autocomplete="off">
+    </mat-form-field>
+    <br>
+
+    <mat-form-field>
+      <input matInput name="username" [placeholder]="'noSpace'|translate" autocomplete="off">
+    </mat-form-field>
+    <br>
+    
   <div class="my-3">------------------our project-------------------------</div>
 
   <form novalidate>
