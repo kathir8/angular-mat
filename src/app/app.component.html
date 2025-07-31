@@ -28,6 +28,14 @@
     </mat-form-field>
     <br>
 
+     <mat-form-field name="database">
+      <mat-select disableOptionCentering placeholder="'drodpownDataBase' |translate">
+        <mat-option id="cboDatabase" class="cboDatabase" *ngFor="let p of servers"
+          [value]="p.ServerID">{{p.ServerDesc}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+
     <mat-form-field>
       <mat-label>Username</mat-label>
       <input matInput name="username" placeholder="Username" autocomplete="off">
