@@ -3,7 +3,10 @@ const glob = require('glob');
 const fs = require('fs');
 const path = require('path');
 
-const files = glob.sync("./src/**/*.html");
+const folderName = '';
+
+const pattern = `src/app/${folderName}/**/*.html`;
+const files = glob.sync(pattern);
 
 files.forEach(file => {
     let content = fs.readFileSync(file, 'utf8');
