@@ -61,34 +61,41 @@ files.forEach(file => {
             (_, openingTag, innerContent, closingTag) => {
                 let updatedInner = innerContent;
                 if (!innerContent.includes("<mat-label")) {
-                    updatedInner = innerContent.replace(
-                        /(^\s*)<(input|mat-select)\b([^>]*?)\s(?:placeholder\s*=\s*(['"])(.*?)\4|\[placeholder\]\s*=\s*(['"])(.*?)\6)([^>]*?)>/gm,
-                        (_, indent, tagName, preAttrs, q1, placeholderValue1, q2, placeholderValue2, postAttrs) => {
-                            let placeholderValue = (placeholderValue1 || placeholderValue2).trim();
-
-                            let cleanPreAttrs = preAttrs
-                                .replace(/\s*placeholder\s*=\s*(['"]?)[^'"\s>]*\1/g, '')
-                                .replace(/\s*\[placeholder\]\s*=\s*['"][^'"]*['"]/g, '')
-                                .trim();
-
-                            let cleanPostAttrs = postAttrs.trim();
-
-                            let labelLine;
-                            if (placeholderValue.includes('|')) {
-                                labelLine = `${indent}<mat-label>{{${placeholderValue}}}</mat-label>`;
-                            } else {
-                                placeholderValue = placeholderValue.replace(/^['"]|['"]$/g, '');
-                                labelLine = `${indent}<mat-label>${placeholderValue}</mat-label>`;
-                            }
-
-                            const elementAttrs = [cleanPreAttrs, cleanPostAttrs]
-                                .filter(attr => attr.length > 0)
-                                .join(' ');
-                            const elementLine = `${indent}<${tagName}${elementAttrs ? ' ' + elementAttrs : ''}>`;
-
-                            return `${labelLine}\n${elementLine}`;
-                        }
-                    );
+                   updatedInner = innerContent.replace(
+    /(^\s*)<(input|mat-select|textarea)\b([^>]*?)\s(?:placeholder\s*=\s*(['"])(.*?)\4|\[placeholder\]\s*=\s*(['"])(.*?)\6)([^>]*?)>/gm,
+    (_, indent, tagName, preAttrs, q1, placeholderValue1, q2, placeholderValue2, postAttrs) => {
+        // Get the placeholder value
+        let placeholderValue = (placeholderValue1 || placeholderValue2).trim();
+        
+        // Clean attributes - remove both quoted and unquoted placeholders
+        let cleanPreAttrs = preAttrs
+            .replace(/\s*placeholder\s*=\s*(['"]?)[^'"\s>]*\1/g, '')
+            .replace(/\s*\[placeholder\]\s*=\s*['"][^'"]*['"]/g, '')
+            .trim();
+        
+        // Clean post attributes
+        let cleanPostAttrs = postAttrs.trim();
+        
+        // Build the mat-label
+        let labelLine;
+        if (placeholderValue.includes('|')) {
+            // Translation case
+            labelLine = `${indent}<mat-label>{{${placeholderValue}}}</mat-label>`;
+        } else {
+            // Simple text case - ensure we don't have any remaining quotes
+            placeholderValue = placeholderValue.replace(/^['"]|['"]$/g, '');
+            labelLine = `${indent}<mat-label>${placeholderValue}</mat-label>`;
+        }
+        
+        // Build the cleaned element
+        const elementAttrs = [cleanPreAttrs, cleanPostAttrs]
+            .filter(attr => attr.length > 0)
+            .join(' ');
+        const elementLine = `${indent}<${tagName}${elementAttrs ? ' ' + elementAttrs : ''}>`;
+        
+        return `${labelLine}\n${elementLine}`;
+    }
+);
                 }
                 return `${openingTag}${updatedInner}${closingTag}`;
             }

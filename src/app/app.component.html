@@ -20,86 +20,99 @@
 
   <form novalidate>
 
+    <mat-form-field class="w-100">
+      <textarea matInput id="ReportingGroupComment" name="ReportingGroupComment" maxlength="2500" type="text" required
+        [placeholder]="'comments' | translate" rows="1">
+      </textarea>
+    </mat-form-field>
+
     <mat-form-field name="database">
-      <mat-select disableOptionCentering placeholder=database>
+      <mat-label>{{'drodpownDataBase' |translate}}</mat-label>
+
+      <mat-select disableOptionCentering>
         <mat-option id="cboDatabase" class="cboDatabase" *ngFor="let p of servers"
           [value]="p.ServerID">{{p.ServerDesc}}</mat-option>
       </mat-select>
     </mat-form-field>
     <br>
 
-     <mat-form-field name="database">
-      <mat-select disableOptionCentering placeholder="'drodpownDataBase' |translate">
-        <mat-option id="cboDatabase" class="cboDatabase" *ngFor="let p of servers"
-          [value]="p.ServerID">{{p.ServerDesc}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <br>
-
-     <mat-form-field>
+    <mat-form-field>
       <mat-label>Username</mat-label>
       <input matInput name="username" [placeholder]="'Username'" autocomplete="off">
     </mat-form-field>
     <br>
 
-     <mat-form-field>
-      <input matInput name="username" placeholder=Username autocomplete="off">
-    </mat-form-field>
-    <br>
-
-   
 
     <mat-form-field>
-      <input matInput name="username" placeholder="Username" autocomplete="off">
-    </mat-form-field>
-    <br>
+      <mat-label>Username</mat-label>
 
-     <mat-form-field>
-      <input matInput name="username" placeholder="'beforeSpace' |translate" autocomplete="off">
+      <input matInput name="username" autocomplete="off">
     </mat-form-field>
     <br>
 
     <mat-form-field>
-      <input matInput name="username" placeholder="'Space' | translate" autocomplete="off">
+      <mat-label>{{'beforeSpace' |translate}}</mat-label>
+
+      <input matInput name="username" autocomplete="off">
     </mat-form-field>
     <br>
 
     <mat-form-field>
-      <input matInput name="username" placeholder="'afterSpace'| translate" autocomplete="off">
+      <mat-label>{{'Space' | translate}}</mat-label>
+
+      <input matInput name="username" autocomplete="off">
     </mat-form-field>
     <br>
 
     <mat-form-field>
-      <input matInput name="username" placeholder="'noSpace'|translate" autocomplete="off">
+      <mat-label>{{'afterSpace'| translate}}</mat-label>
+
+      <input matInput name="username" autocomplete="off">
+    </mat-form-field>
+    <br>
+
+    <mat-form-field>
+      <mat-label>{{'noSpace'|translate}}</mat-label>
+
+      <input matInput name="username" autocomplete="off">
     </mat-form-field>
     <br>
 
     ----------------------------------------
     <mat-form-field>
-      <input matInput name="username" placeholder ="'noSpace'|translate" autocomplete="off">
-    </mat-form-field>
-    <br>
-    ----------------------------------------
-     <mat-form-field>
-      <input matInput name="username" placeholder = "'noSpace'|translate" autocomplete="off">
-    </mat-form-field>
-    <br>
-    ----------------------------------------
+      <mat-label>{{'noSpace'|translate}}</mat-label>
 
-     <mat-form-field>
-      <input matInput name="username" [placeholder] ="'noSpace'|translate" autocomplete="off">
+      <input matInput name="username" autocomplete="off">
     </mat-form-field>
     <br>
     ----------------------------------------
-     <mat-form-field>
-      <input matInput name="username" [placeholder]= "'noSpace'|translate" autocomplete="off">
+    <mat-form-field>
+      <mat-label>{{'noSpace'|translate}}</mat-label>
+
+      <input matInput name="username" autocomplete="off">
     </mat-form-field>
     <br>
     ----------------------------------------
 
     <mat-form-field>
-      <input matInput name="username" 
-      placeholder="'withBreak'|translate" autocomplete="off">
+      <mat-label>{{'noSpace'|translate}}</mat-label>
+
+      <input matInput name="username" autocomplete="off">
+    </mat-form-field>
+    <br>
+    ----------------------------------------
+    <mat-form-field>
+      <mat-label>{{'noSpace'|translate}}</mat-label>
+
+      <input matInput name="username" autocomplete="off">
+    </mat-form-field>
+    <br>
+    ----------------------------------------
+
+    <mat-form-field>
+      <mat-label>{{'withBreak'|translate}}</mat-label>
+
+      <input matInput name="username" autocomplete="off">
     </mat-form-field>
     <br>
 

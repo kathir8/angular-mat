@@ -1,4 +1,4 @@
-<div [ngClass]="{'d-none': isWardUser }"  class="patregister">
+<div [ngClass]="{'d-none': isWardUser }" class="patregister">
   <form #PatientRegistrationForm="ngForm" id="patreg" autocomplete="off" class="m-2">
     <div class="col-12   fullHeight pt-1">
       <!--<div [ngClass]="{ '': valueType !== 'Set','col-md-3': valueType === 'Set','patNoneDisplay': valueType !== 'Set','patDisplay': valueType === 'Set'}" class="h-100">
@@ -13,16 +13,25 @@
       <!--<div id="patientSearch" *ngIf="!patientService.showGrid" [ngClass]="{'col-md-12': valueType !== 'Set','col-md-9': valueType === 'Set'}" class="h-100 lbgWhite">-->
       <mat-tab-group [(selectedIndex)]="Index" id="patient-details-tabs">
 
-        <mat-tab  [label]="PatientRegistaratinTitle"  *ngIf="!isAntibody" >
+        <mat-tab [label]="PatientRegistaratinTitle" *ngIf="!isAntibody">
           <div class="row ps-1 padTop5">
             <div class="formDivider marginbottom">
               <strong class="formTitle px-2 colorHeader">{{"basicdetails" | translate}}</strong>
             </div>
+
+            <mat-form-field class="w-100">
+              <textarea matInput id="ReportingGroupComment" name="ReportingGroupComment" maxlength="2500" type="text"
+                required [placeholder]="'comments' | translate" [(ngModel)]="action.CommentsGroup"
+                (ngModelChange)="onChangeCG($event,action)" rows="1">
+              </textarea>
+            </mat-form-field>
+
             <div class="col-3  ">
               <mat-form-field class="w-100">
                 <input matInput [placeholder]="'nhsnumber' | translate" id="patnhsnumber" name="txtNHSNumber"
                   maxlength="10" [(ngModel)]="ObjPatient.NHSNumber" maskSpecialCharacter maskNumber maskNHSNumber
-                  [disabled]="(disablePRfield)||(isAmendPatient)" (blur)="ValidateNhsNo($event.target.value)" myAutofocus>
+                  [disabled]="(disablePRfield)||(isAmendPatient)" (blur)="ValidateNhsNo($event.target.value)"
+                  myAutofocus>
               </mat-form-field>
             </div>
             <div class="col-3">
@@ -30,20 +39,21 @@
                 <div class="col pe-0">
                   <mat-form-field class="w-100">
                     <mat-label>{{'pasnumber' | translate }}</mat-label>
-                    <input matInput id="patpasnumber" name="patPasNumber" required
-                      (blur)="UpdateMainIdentifier()" [(ngModel)]="ObjPatient.PASNumber" maskSpecialCharacter
+                    <input matInput id="patpasnumber" name="patPasNumber" required (blur)="UpdateMainIdentifier()"
+                      [(ngModel)]="ObjPatient.PASNumber" maskSpecialCharacter
                       [disabled]="(disablePRfield)||(isAmendPatient)" [maxlength]="identifierLength">
                   </mat-form-field>
                 </div>
                 <div *ngIf="!isAmendPatient" class="col-2 p-0 other-identifier-container">
-                  <i class="material-icons add-icon cursor " (click)="showidentifiers(OtherIdentifierMode.editable)">add</i>
+                  <i class="material-icons add-icon cursor "
+                    (click)="showidentifiers(OtherIdentifierMode.editable)">add</i>
                   <i class="fa fa-cog cogg-icon" [ngClass]="{
                       'cursor': identifiersLists.length === 0,
                       'opacity-50': identifiersLists.length > 0
                     }" [class.cursor]="identifiersLists.length === 0" [class.disabled]="identifiersLists.length > 0"
                     (click)="identifiersLists.length === 0 && onAutoGeneratePasNumber()">
                   </i>
-<!-- 
+                  <!-- 
                   <div class="mainLayerIdyTwo">
                     <span *ngIf="identifiersLists">
                       <i *ngIf="identifiersLists.length==0" class="icon-color fa fa-cog cogg cursor" aria-hidden="true"
@@ -80,14 +90,15 @@
                 </mat-autocomplete>
               </mat-form-field> -->
 
-              <mat-form-field class="w-100" >
+              <mat-form-field class="w-100">
                 <!-- <input type="text" matInput [placeholder]="'registertitle'| translate" id="pattitle"  name="pattitle"
                    [(ngModel)]="ObjPatient.Title" [matAutocomplete]="auto"
                   (change)="onTitleChange(ObjPatient.Title.toString())"> -->
-                  <mat-select [placeholder]="'registertitle'| translate"   id="pattitle"  name="pattitle"
-                  [(ngModel)]="ObjPatient.Title" [displayWith]="TitleAutoDisplay.bind(this)"class="md-select-extension">
+                <mat-select [placeholder]="'registertitle'| translate" id="pattitle"  name="pattitle"
+                  [(ngModel)]="ObjPatient.Title" [displayWith]="TitleAutoDisplay.bind(this)"
+                  class="md-select-extension">
                   <mat-option value=""></mat-option>
-                  <mat-option *ngFor="let TL of TitleList" [value]="+TL.ID"> {{TL.Expansion}}
+                  <mat-option *ngFor="let TL of TitleList"  [value]="+TL.ID"> {{TL.Expansion}}
                   </mat-option>
                 </mat-select>
                 <!-- <mat-autocomplete #auto="matAutocomplete" [displayWith]="TitleAutoDisplay.bind(this)">
@@ -99,9 +110,9 @@
             </div>
             <div class="col-3  ">
               <mat-form-field class="w-100">
-                <input matInput [placeholder]="'givenname' | translate" id="patgivenname" required name="txtGivenName" maskCapitalize
-                  (keypress)="MaskCharacters($event)" maxlength="35" [(ngModel)]="ObjPatient.GivenName" title="Enter the Given Name"
-                  autocomplete="off" [disabled]="disablePRfield">
+                <input matInput [placeholder]="'givenname' | translate" id="patgivenname" required name="txtGivenName"
+                  maskCapitalize (keypress)="MaskCharacters($event)" maxlength="35" [(ngModel)]="ObjPatient.GivenName"
+                  title="Enter the Given Name" autocomplete="off" [disabled]="disablePRfield">
               </mat-form-field>
               <mat-hint class="mat-hint"><strong>{{"givennamehint" | translate}}</strong></mat-hint>
             </div>
@@ -110,8 +121,8 @@
             <div class="col-3  ">
               <mat-form-field class="w-100">
                 <input matInput [placeholder]="'middlenames' | translate" id="patmiddlenames" name="txtMiddleName"
-                  maskCapitalize [(ngModel)]="ObjPatient.MiddleName" title="Enter the Middle Name" (keypress)="MaskCharacters($event)"
-                  maxlength="35" autocomplete="off" [disabled]="disablePRfield">
+                  maskCapitalize [(ngModel)]="ObjPatient.MiddleName" title="Enter the Middle Name"
+                  (keypress)="MaskCharacters($event)" maxlength="35" autocomplete="off" [disabled]="disablePRfield">
               </mat-form-field>
             </div>
             <div class="col-3  ">
@@ -125,9 +136,10 @@
             <div class="col-2  " id="patGenDiv">
               <!-- <autocomplete
             [DisplayName]="'Expansion'" [Value]="'ID'" [(inputModel)]="ObjPatient.GenderID" [IMyAutoCompleteoptions]="genderOptions" *ngIf="GenderComboList" [Data]="GenderComboList"></autocomplete> -->
-             <mat-form-field>
-                <mat-select disableOptionCentering  [placeholder]="'gender' | translate" id="patgender"  name="drpGender"
-                (ngModelChange)="onChangeGenderItem($event)" [(ngModel)]="ObjPatient.GenderID" [disabled]="disablePRfield" class="md-select-extension">
+              <mat-form-field>
+                <mat-select disableOptionCentering [placeholder]="'gender' | translate" id="patgender" name="drpGender"
+                  (ngModelChange)="onChangeGenderItem($event)" [(ngModel)]="ObjPatient.GenderID"
+                  [disabled]="disablePRfield" class="md-select-extension">
                   <mat-option value=""></mat-option>
                   <mat-option *ngFor="let gender of GenderComboList" [value]="gender.ID">{{gender.Expansion}}
                   </mat-option>
@@ -136,8 +148,9 @@
             </div>
             <div class="col-2  " id="patSexDiv">
               <mat-form-field>
-                <mat-select disableOptionCentering  [placeholder]="'sex' | translate" id="patsex" name="drpSex" required
-                  [(ngModel)]="ObjPatient.SexID" (selectionChange)="disablePregant()" [disabled]="disablePRfield" class="md-select-extension ps-1">
+                <mat-select disableOptionCentering [placeholder]="'sex' | translate" id="patsex" name="drpSex" required
+                  [(ngModel)]="ObjPatient.SexID" (selectionChange)="disablePregant()" [disabled]="disablePRfield"
+                  class="md-select-extension ps-1">
                   <mat-option value=""></mat-option>
                   <mat-option *ngFor="let sex of SexComboList" [value]="sex.ID">{{sex.Expansion}}</mat-option>
                 </mat-select>
@@ -145,8 +158,9 @@
             </div>
             <div class="col-2  " id="patCatDiv">
               <mat-form-field>
-                <mat-select disableOptionCentering  [placeholder]="'patientcategory' | translate" id="patcat" name="txtOrdpatientcategory"
-                (ngModelChange)="onChangePatientCategoryItem($event)"  [(ngModel)]="ObjPatient.PatientCategoryID" class="md-select-extension">
+                <mat-select disableOptionCentering [placeholder]="'patientcategory' | translate" id="patcat"
+                  name="txtOrdpatientcategory" (ngModelChange)="onChangePatientCategoryItem($event)"
+                  [(ngModel)]="ObjPatient.PatientCategoryID" class="md-select-extension">
                   <mat-option *ngFor="let patcatList of patientCategoryList" [value]="patcatList.ID">
                     {{patcatList.Expansion}}</mat-option>
                 </mat-select>
@@ -155,8 +169,9 @@
           </div>
           <div class="row ps-1">
             <div class="col-3  ">
-              <lims-virtual-ng-select  [DisplayColumns]="DisplayColumns" placeholder="{{'ethnicity' | translate}}" [Options]="EthnicityComboList"
-              dispFld="Expansion" [(Transaction)]="ObjPatient.EthnicityID" valueFld="ID" (ngModelChangeEmit)="EthnicityChange($event)"></lims-virtual-ng-select>
+              <lims-virtual-ng-select [DisplayColumns]="DisplayColumns" placeholder="{{'ethnicity' | translate}}"
+                [Options]="EthnicityComboList" dispFld="Expansion" [(Transaction)]="ObjPatient.EthnicityID"
+                valueFld="ID" (ngModelChangeEmit)="EthnicityChange($event)"></lims-virtual-ng-select>
               <!-- <mat-form-field class="w-100">
               
               <mat-select disableOptionCentering  [placeholder]="'ethnicity' | translate" id="patethnicity" name="drpEthnicity"
@@ -165,15 +180,15 @@
                   <mat-option *ngFor="let ethnicity of EthnicityComboList" [value]="ethnicity.ID">
                     {{ethnicity.Expansion}}</mat-option>
                 </mat-select>
-              </mat-form-field> -->           
+              </mat-form-field> -->
             </div>
 
             <div id="patRegdateofbirth" class="col-2  ">
 
               <customdatepicker [IsDisabled]="ObjPatient.UnknownDate"  [controlFormat]="'d'" [(inputModel)]="ObjPatient.DateOfBirth" [Externalparameter]="{Date:ObjPatient.DateOfBirth,Type:'dob',event:'ngChange'}"
-                (LaunchExternalEvent)="LaunchExternalEvent($event)" 
-                 [display]="'dateofbirth' | translate"  [IsCurrent]="false"  [maxDate]="currentDate" [isFullDateAllowed] = "true">
-              </customdatepicker>
+                               (LaunchExternalEvent)="LaunchExternalEvent($event)" [display]="'dateofbirth' | translate"
+                 [IsCurrent]="false" [maxDate]="currentDate" [isFullDateAllowed]="true">
+                              </customdatepicker>
 
             </div>
             <div class="col-1 ipadAge">
@@ -184,15 +199,17 @@
             </div>
             <div class="col-2   margin-unknown-dob">
 
-              <mat-checkbox class="ipadLeft" name="unknowndate" id="unknowndate" type="checkbox" [(ngModel)]="ObjPatient.UnknownDate" (change)="ClearDate()" >
-                 <span style="font-size: 14px !important;">{{"unknowndate" | translate}}</span>
-                </mat-checkbox>
-              </div>
+              <mat-checkbox class="ipadLeft" name="unknowndate" id="unknowndate" type="checkbox"
+                [(ngModel)]="ObjPatient.UnknownDate" (change)="ClearDate()">
+                <span style="font-size: 14px !important;">{{"unknowndate" | translate}}</span>
+              </mat-checkbox>
+            </div>
             <div id="patRegDateOfDeath" class="col-2   ipadDate">
 
               <customdatepicker [controlFormat]="'d'" [(inputModel)]="ObjPatient.DateOfDeath" [Externalparameter]="{Date:ObjPatient.DateOfDeath,Type:'dod',event:'ngChange'}"
-                (LaunchExternalEvent)="LaunchExternalEvent($event)" [display]="'dateofdeath' | translate" [IsCurrent]="false" [maxDate]="DisableSince">
-              </customdatepicker>
+                               (LaunchExternalEvent)="LaunchExternalEvent($event)"
+                 [display]="'dateofdeath' | translate"  [IsCurrent]="false"  [maxDate]="DisableSince">
+                              </customdatepicker>
 
             </div>
             <div class="col-2   ipadDeath">
@@ -204,35 +221,43 @@
           </div>
           <div class="row ps-1">
             <div class="col-2">
-              <mat-form-field class="w-100" >
+              <mat-form-field class="w-100">
                 <input matInput [placeholder]="'legacyid' | translate" id="legacysys" name="legacysys" [disabled]="true"
-                [(ngModel)]="ObjPatient.LegacyPassNumber">
+                  [(ngModel)]="ObjPatient.LegacyPassNumber">
               </mat-form-field>
             </div>
-            <div *ngIf="!isAmendPatient" class="col-1 row ps-1"  style="margin-top: 16px;margin-left: -10px;">
-              <div   class="col-6"  (click)="CheckRightForLegacyField ? null : LegacyPatientSearch()" style="cursor: pointer;">
-                <span matTooltip="{{'search'|translate}}" [ngClass]="{ 'disabledlegacy': CheckRightForLegacyField }"  [matTooltipPosition]="'below'" class="mdi mdi-magnify" style="font-size: 20px;"></span>
+            <div *ngIf="!isAmendPatient" class="col-1 row ps-1" style="margin-top: 16px;margin-left: -10px;">
+              <div class="col-6" (click)="CheckRightForLegacyField ? null : LegacyPatientSearch()"
+                style="cursor: pointer;">
+                <span matTooltip="{{'search'|translate}}" [ngClass]="{ 'disabledlegacy': CheckRightForLegacyField }"
+                  [matTooltipPosition]="'below'" class="mdi mdi-magnify" style="font-size: 20px;"></span>
               </div>
-              <div class="col-6" (click)="CheckRightForLegacyField ? null : clearlegacy()"  style="margin-left: -10px;cursor: pointer;">
-                <span matTooltip="{{'btnClear'|translate}}" [ngClass]="{ 'disabledlegacy': CheckRightForLegacyField }"  [matTooltipPosition]="'below'" class="mdi mdi-close-thick" style="font-size: 20px;"></span>
+              <div class="col-6" (click)="CheckRightForLegacyField ? null : clearlegacy()"
+                style="margin-left: -10px;cursor: pointer;">
+                <span matTooltip="{{'btnClear'|translate}}" [ngClass]="{ 'disabledlegacy': CheckRightForLegacyField }"
+                  [matTooltipPosition]="'below'" class="mdi mdi-close-thick" style="font-size: 20px;"></span>
               </div>
             </div>
             <div class="col-2">
-              <mat-form-field class="w-100" >
+              <mat-form-field class="w-100">
                 <input matInput [placeholder]="'legacysys' | translate" id="legacyid" name="legacyid" [disabled]="true"
-                [(ngModel)]="ObjPatient.LegacyPassSystem">
+                  [(ngModel)]="ObjPatient.LegacyPassSystem">
               </mat-form-field>
             </div>
             <div class="col-2 ipadFlag">
 
               <!-- * Multiselect Dropdown -- Special intrest flag -->
-              <lims-virtual-ng-multi-select [DisplayColumns]="MultiselectColumns"  [placeholder]="'specialinterestflag' | translate" [SelectedValuePath] = "'ID'" [ngMdlFld] = "'ObjectID'"
-	            [Options]="splinterstList" dispFld="expansion" [(Transaction)]="ObjPatient.PatSpecInterestFlag" (ngModelChangeEmit) = "OnPatSpecInterestFlagChange($event)" [disable]="(disablePRfield)||(isAmendPatient)"></lims-virtual-ng-multi-select>
+              <lims-virtual-ng-multi-select [DisplayColumns]="MultiselectColumns"
+                [placeholder]="'specialinterestflag' | translate" [SelectedValuePath]="'ID'" [ngMdlFld]="'ObjectID'"
+                [Options]="splinterstList" dispFld="expansion" [(Transaction)]="ObjPatient.PatSpecInterestFlag"
+                (ngModelChangeEmit)="OnPatSpecInterestFlagChange($event)"
+                [disable]="(disablePRfield)||(isAmendPatient)"></lims-virtual-ng-multi-select>
             </div>
 
             <div class="col-3">
               <mat-form-field class="w-100">
-                <input matInput [placeholder]="'PatientLocation' | translate" id="PatCurrLoc" name="PatCurrLoc" class="m-0 w-100" [(ngModel)]="ObjPatient.CurrentLocation" [disabled]="true">
+                <input matInput [placeholder]="'PatientLocation' | translate" id="PatCurrLoc" name="PatCurrLoc"
+                  class="m-0 w-100" [(ngModel)]="ObjPatient.CurrentLocation" [disabled]="true">
               </mat-form-field>
             </div>
             <!-- <div class="col-md-3">
@@ -253,7 +278,10 @@
               </mat-form-field>
             </div> -->
             <div class="col-1" style="margin-top: 20px">
-              <mat-checkbox [disabled]="ObjPatient.SexID != 2 || isAmendPatient"  [ngClass]="{'margleft30':isPoptupContext}" name="drpPregnant" id="pregnant" (change)="onPregnantSelect($event)" type="checkbox"  [(ngModel)]="ObjPatient.Pregnant">{{'pregnant' | translate}}</mat-checkbox>
+              <mat-checkbox [disabled]="ObjPatient.SexID != 2 || isAmendPatient"
+                [ngClass]="{'margleft30':isPoptupContext}" name="drpPregnant" id="pregnant"
+                (change)="onPregnantSelect($event)" type="checkbox" [(ngModel)]="ObjPatient.Pregnant">{{'pregnant' |
+                translate}}</mat-checkbox>
             </div>
 
             <!--<div class="col-3   ">
@@ -272,30 +300,38 @@
           <div class="row ps-1">
             <div class="col-3">
               <mat-form-field class="w-100">
-                <input matInput [placeholder]="'Weeksgestation' | translate"  type="text"  name="WeeksGestation"
-                  [disabled]="!ObjPatient.Pregnant || isAmendPatient" maxlength="2" maskNumber  [(ngModel)]="ObjPatient.WeeksGestation" (keyup)="onKeyUp($event)">
+                <input matInput [placeholder]="'Weeksgestation' | translate" type="text" name="WeeksGestation"
+                  [disabled]="!ObjPatient.Pregnant || isAmendPatient" maxlength="2" maskNumber
+                  [(ngModel)]="ObjPatient.WeeksGestation" (keyup)="onKeyUp($event)">
               </mat-form-field>
             </div>
             <div class="col-3">
-            <mat-form-field class="w-100">
-              <input matInput  type="text"  name="WGRecordedDate" [disabled]="true" [ngModel]="ObjPatient.WGRecordedDate | gestationRecordedDate" (ngModelChange)="ObjPatient.WGRecordedDate=$event">
-            </mat-form-field>
-          </div>
-            <div  class="col-3">
-              <customdatepicker [minDate]="currentDate"  [(inputModel)]="ObjPatient.EDD" [Externalparameter]="{Type:'EDDSS',event:'ngChange'}"  [controlFormat]="'d'" (LaunchExternalEvent)="dateChange($event)"
-              [display]="'edd' | translate" [IsCurrent]="false" [IsDisabled]="!ObjPatient.Pregnant || isAmendPatient">
-             </customdatepicker>
+              <mat-form-field class="w-100">
+                <input matInput type="text" name="WGRecordedDate" [disabled]="true"
+                  [ngModel]="ObjPatient.WGRecordedDate | gestationRecordedDate"
+                  (ngModelChange)="ObjPatient.WGRecordedDate=$event">
+              </mat-form-field>
+            </div>
+            <div class="col-3">
+              <customdatepicker [minDate]="currentDate" [(inputModel)]="ObjPatient.EDD"
+                [Externalparameter]="{Type:'EDDSS',event:'ngChange'}" [controlFormat]="'d'"
+                (LaunchExternalEvent)="dateChange($event)" [display]="'edd' | translate" [IsCurrent]="false"
+                [IsDisabled]="!ObjPatient.Pregnant || isAmendPatient">
+              </customdatepicker>
             </div>
             <div class="col-3  ">
-              <customdatepicker [(inputModel)]="ObjPatient.ActualDeliveryDate" [Externalparameter]="{Type:'ADDateSS',event:'ngChange'}"  [controlFormat]="'d'" (LaunchExternalEvent)="onADDSelect($event)"
-              [display]="'ADD' | translate" [maxDate]="currentDate" [IsCurrent]="false" [IsDisabled]="ObjPatient.SexID != 2 || isAmendPatient">
-             </customdatepicker>
+              <customdatepicker [(inputModel)]="ObjPatient.ActualDeliveryDate"
+                [Externalparameter]="{Type:'ADDateSS',event:'ngChange'}" [controlFormat]="'d'"
+                (LaunchExternalEvent)="onADDSelect($event)" [display]="'ADD' | translate" [maxDate]="currentDate"
+                [IsCurrent]="false" [IsDisabled]="ObjPatient.SexID != 2 || isAmendPatient">
+              </customdatepicker>
             </div>
 
-              <!-- * Singleselect Dropdown -- Procedure Worklist -->
-					    <lims-virtual-ng-select  [DisplayColumns]="DisplayColumns" placeholder="{{'hazard' | translate}}"  [Options]="HazardComboList"
-              dispFld="expansion" [(Transaction)]="ObjPatient.HazardID" valueFld = "ID" (ngModelChangeEmit)="HazardChange($event)"></lims-virtual-ng-select>
-            </div>
+            <!-- * Singleselect Dropdown -- Procedure Worklist -->
+            <lims-virtual-ng-select [DisplayColumns]="DisplayColumns" placeholder="{{'hazard' | translate}}"
+              [Options]="HazardComboList" dispFld="expansion" [(Transaction)]="ObjPatient.HazardID" valueFld="ID"
+              (ngModelChangeEmit)="HazardChange($event)"></lims-virtual-ng-select>
+          </div>
           <div class="row ps-1">
             <div class="formDivider formDividerpatreg1">
               <strong class="formTitle px-2 colorHeader">{{"currentaddress1" | translate}}</strong>
@@ -319,16 +355,16 @@
             <div class="col-3  ">
               <mat-form-field class="w-100">
                 <input matInput [placeholder]="'town' | translate" id="patpreviousaddressline3" name="txtaddrline3"
-                  [(ngModel)]="ObjPatient.Address[0].Line3" maskAddressCharacter maxlength="50" [disabled]="disablePRfield"
-                  data-toggle="tooltip" title="Line3"
+                  [(ngModel)]="ObjPatient.Address[0].Line3" maskAddressCharacter maxlength="50"
+                  [disabled]="disablePRfield" data-toggle="tooltip" title="Line3"
                   style="text-overflow:ellipsis;white-space: nowrap;">
               </mat-form-field>
             </div>
             <div class="col-3  ">
               <mat-form-field class="w-100">
                 <input matInput [placeholder]="'county' | translate" id="patprevcity" name="txtcity"
-                  [(ngModel)]="ObjPatient.Address[0].City" maskAddressCharacter maxlength="50" [disabled]="disablePRfield"
-                  data-toggle="tooltip" title="Enter the City">
+                  [(ngModel)]="ObjPatient.Address[0].City" maskAddressCharacter maxlength="50"
+                  [disabled]="disablePRfield" data-toggle="tooltip" title="Enter the City">
               </mat-form-field>
             </div>
           </div>
@@ -336,8 +372,10 @@
             <div *ngIf="CountryComboList" class="col-3  ">
 
               <!-- * Singleselect Dropdown -- Country -->
-					    <lims-virtual-ng-select  [DisplayColumns]="DisplayColumns" placeholder="{{'country' | translate}}"  [Options]="CountryComboList" [showHeader]="false"
-              dispFld="expansion" [(Transaction)]="ObjPatient.Address[0].Country" valueFld = "ID" (ngModelChangeEmit)="CountryChange($event)"></lims-virtual-ng-select>
+              <lims-virtual-ng-select [DisplayColumns]="DisplayColumns" placeholder="{{'country' | translate}}"
+                [Options]="CountryComboList" [showHeader]="false" dispFld="expansion"
+                [(Transaction)]="ObjPatient.Address[0].Country" valueFld="ID"
+                (ngModelChangeEmit)="CountryChange($event)"></lims-virtual-ng-select>
             </div>
             <div class="col-3  ">
               <mat-form-field class="w-100">
@@ -373,29 +411,28 @@
             <div class="col-3  ">
               <div class="row ps-1">
                 <lims-virtual-ng-select [DisplayColumns]="defaultlocationOptions"
-                placeholder="{{'gpLocation' | translate}}" [Options]="objshowGPlocation"
-                valueFld="ID" dispFld="Expansion" [disable]="disableAccess"
-                [(Transaction)]="ObjPatient.RegisteredGPLocation" (ngModelChangeEmit)="onGPLocationChange()">
-              </lims-virtual-ng-select>
-            </div>
+                  placeholder="{{'gpLocation' | translate}}" [Options]="objshowGPlocation" valueFld="ID"
+                  dispFld="Expansion" [disable]="disableAccess" [(Transaction)]="ObjPatient.RegisteredGPLocation"
+                  (ngModelChangeEmit)="onGPLocationChange()">
+                </lims-virtual-ng-select>
+              </div>
             </div>
 
             <div class="col-3 row ms-2">
               <div class="col-11">
                 <lims-virtual-ng-select [DisplayColumns]="defaultlocationOptions"
-                placeholder="{{'generalPract' | translate}}" [requiredField]="false" [Options]="objshowGPclinician"
-                valueFld="ClinicianID" dispFld="Expansion" [disable]="disableAccess" [(Transaction)]="ObjPatient.RegisteredGPID"
-                (ngModelChangeEmit)="onGPChange()">
-              </lims-virtual-ng-select>
+                  placeholder="{{'generalPract' | translate}}" [requiredField]="false" [Options]="objshowGPclinician"
+                  valueFld="ClinicianID" dispFld="Expansion" [disable]="disableAccess"
+                  [(Transaction)]="ObjPatient.RegisteredGPID" (ngModelChangeEmit)="onGPChange()">
+                </lims-virtual-ng-select>
               </div>
-  
-            <div class="col-1">
-              <span class="material-icons"
-              [ngStyle]="{ 
+
+              <div class="col-1">
+                <span class="material-icons" [ngStyle]="{ 
                 'color': GPLocationCheck ? '#0096bb' : '#434659'
-              }" style="margin-top: 20px; cursor:pointer"
-              matTooltip="{{'LocationClinitionfilter'| translate}}" (click)="toggleLocation(!GPLocationCheck)">location_on</span>
-            </div>
+              }" style="margin-top: 20px; cursor:pointer" matTooltip="{{'LocationClinitionfilter'| translate}}"
+                  (click)="toggleLocation(!GPLocationCheck)">location_on</span>
+              </div>
               <!-- <mat-form-field class="w-100">
                 <mat-select disableOptionCentering  [placeholder]="'registeredgp' | translate" id="OrdDrop" name="drSex"
                   (ngModelChange)="OnSelect($event)" [(ngModel)]="ObjPatient.RegisteredGPID"
@@ -408,15 +445,13 @@
             <div class="col-3  ">
               <mat-form-field class="w-100">
                 <input matInput [placeholder]="'phone' | translate" id="patregisteredgpphone"
-                  name="drpRegisteredGPPhone"  [(ngModel)]="ObjPatient.RegisteredGPPhone"
-                  [disabled]="true">
+                  name="drpRegisteredGPPhone" [(ngModel)]="ObjPatient.RegisteredGPPhone" [disabled]="true">
               </mat-form-field>
             </div>
             <div class="col-3  ">
               <mat-form-field class="w-100">
                 <input matInput [placeholder]="'address' | translate" id="patregisteredgpaddress"
-                  name="drpRegisteredGPAddress"  [(ngModel)]="ObjPatient.RegisteredGPAddress"
-                  [disabled]="true">
+                  name="drpRegisteredGPAddress" [(ngModel)]="ObjPatient.RegisteredGPAddress" [disabled]="true">
               </mat-form-field>
             </div>
           </div>
@@ -424,15 +459,14 @@
             <div class="col-3  ">
               <mat-form-field class="w-100">
                 <input matInput [placeholder]="'email' | translate" id="patregisteredgpemail" maxlength="50"
-                  name="drpRegisteredGPEmail"  [(ngModel)]="ObjPatient.RegisteredGpEmail" maskEmail
-                  [disabled]="true">
+                  name="drpRegisteredGPEmail" [(ngModel)]="ObjPatient.RegisteredGpEmail" maskEmail [disabled]="true">
               </mat-form-field>
             </div>
           </div>
           <div *ngIf="isAmendPatient" class="col-12  ">
             <mat-form-field class="w-100">
-              <textarea [(ngModel)]="AmendComments" required id='Comments' maxlength="250" matInput  [placeholder]="'reasonforchange' | translate"  name="comments" type="text"
-                                                    rows="4" > </textarea>
+              <textarea [(ngModel)]="AmendComments" required id='Comments' maxlength="250" matInput
+                [placeholder]="'reasonforchange' | translate" name="comments" type="text" rows="4"> </textarea>
             </mat-form-field>
           </div>
 
@@ -473,16 +507,19 @@
             </div>
             <div class="col-3  ">
               <mat-form-field class="w-100">
-                <input matInput [placeholder]="'bloodgroup' | translate" id="patBloodGrp" maskCapitalize name="txtBloodGrp"
-                  maxlength="20" [(ngModel)]="ObjPatient.ConfirmedBloodGroup" title="Enter the Blood group" [disabled]="true">
+                <input matInput [placeholder]="'bloodgroup' | translate" id="patBloodGrp" maskCapitalize
+                  name="txtBloodGrp" maxlength="20" [(ngModel)]="ObjPatient.ConfirmedBloodGroup"
+                  title="Enter the Blood group" [disabled]="true">
                 <!--<md-hint class="mat-hint"><strong>e.g. Mr</strong></md-hint>-->
               </mat-form-field>
             </div>
             <div class="col-3" style="margin-top:-3px" *ngIf="!CPOrderEntry && !MBOrderEntry">
-              <lims-virtual-ng-multi-select [DisplayColumns]="virtualDisplayColumns" [placeholder]="'diagnosis' | translate" [SelectedValuePath]="'ID'" [ngMdlFld]="'ObjectID'"
-                [Options]="diagnosisgrouplist" dispFld="Expansion" [(Transaction)]="ObjPatient.ClinicalDiagnosisList" (ngModelChangeEmit)="DiagnosisChange($event)"></lims-virtual-ng-multi-select>
+              <lims-virtual-ng-multi-select [DisplayColumns]="virtualDisplayColumns"
+                [placeholder]="'diagnosis' | translate" [SelectedValuePath]="'ID'" [ngMdlFld]="'ObjectID'"
+                [Options]="diagnosisgrouplist" dispFld="Expansion" [(Transaction)]="ObjPatient.ClinicalDiagnosisList"
+                (ngModelChangeEmit)="DiagnosisChange($event)"></lims-virtual-ng-multi-select>
             </div>
-           <!-- <div class="col-3  ">
+            <!-- <div class="col-3  ">
               <mat-form-field class="w-100">
                 <input matInput [placeholder]="'firstevername' | translate" id="patfirstevername" maskCapitalize name="txtfirstevername"
                   maxlength="35" [(ngModel)]="ObjPatient.FirstEverFamilyName" title="Enter the firstevername" [disabled]="disablePRfield">
@@ -502,40 +539,40 @@
 
             <div class="col-3  ">
               <mat-form-field class="w-100">
-                <input matInput [placeholder]="'givenname' | translate" id="patpregivenname" name="txtpregivenname" maxlength="35" [disabled]="true" maskUpperCase [(ngModel)]="ObjPatient.GivenName" />
+                <input matInput [placeholder]="'givenname' | translate" id="patpregivenname" name="txtpregivenname"
+                  maxlength="35" [disabled]="true" maskUpperCase [(ngModel)]="ObjPatient.GivenName" />
               </mat-form-field>
             </div>
             <div class="col-3  ">
               <mat-form-field class="w-100">
-                <input matInput [placeholder]="'middlenames' | translate" id="patpremiddlename"
-                  name="txtpremiddlename" maxlength="35" [disabled]="true" maskUpperCase [(ngModel)]="ObjPatient.MiddleName"/>
+                <input matInput [placeholder]="'middlenames' | translate" id="patpremiddlename" name="txtpremiddlename"
+                  maxlength="35" [disabled]="true" maskUpperCase [(ngModel)]="ObjPatient.MiddleName" />
               </mat-form-field>
             </div>
             <div class="col-3  ">
               <mat-form-field class="w-100">
-                <input matInput [placeholder]="'surname' | translate" id="patprefamilyname"
-                  name="txtprefamilyname" maxlength="35" [disabled]="true" maskUpperCase
-                  [(ngModel)]="ObjPatient.FamilyName" />
+                <input matInput [placeholder]="'surname' | translate" id="patprefamilyname" name="txtprefamilyname"
+                  maxlength="35" [disabled]="true" maskUpperCase [(ngModel)]="ObjPatient.FamilyName" />
               </mat-form-field>
             </div>
-        </div>
+          </div>
 
-        <div id="Griddata">
-          <!-- <kendo-grid style="height:calc(100vh - 370px);display: flex; transform: rotateY(15px);" [data]="gridView"
+          <div id="Griddata">
+            <!-- <kendo-grid style="height:calc(100vh - 370px);display: flex; transform: rotateY(15px);" [data]="gridView"
         [resizable]="true" [selectable]="true" [pageSize]="state.take" [skip]="state.skip" [pageable]="true"
         (pageChange)="pageChange($event)" > -->
 
             <kendo-grid style="max-height:calc(100vh - 330px);display: flex; transform: rotateY(15px);"
-            [data]="gridView" [resizable]="true" [selectable]="true" [pageSize]="state.take"
-            [skip]="state.skip" [pageable]="true" (pageChange)="pageChange($event)"(dataStateChange)="dataStateChange($event)">
+              [data]="gridView" [resizable]="true" [selectable]="true" [pageSize]="state.take" [skip]="state.skip"
+              [pageable]="true" (pageChange)="pageChange($event)" (dataStateChange)="dataStateChange($event)">
 
-            <kendo-grid-column field="GivenName" title='{{"previousgivenname" | translate}}' [width]="40">
-            </kendo-grid-column>
-            <kendo-grid-column field="MiddleName" title='{{"previousmiddlename" | translate}}' [width]="40">
-            </kendo-grid-column>
-            <kendo-grid-column field="FamilyName" title='{{"previousfamilyname" | translate}}' [width]="40">
-            </kendo-grid-column>
-            <!-- <kendo-grid-column [width]="40" title='{{"nameatbirth" | translate}}' >
+              <kendo-grid-column field="GivenName" title='{{"previousgivenname" | translate}}' [width]="40">
+              </kendo-grid-column>
+              <kendo-grid-column field="MiddleName" title='{{"previousmiddlename" | translate}}' [width]="40">
+              </kendo-grid-column>
+              <kendo-grid-column field="FamilyName" title='{{"previousfamilyname" | translate}}' [width]="40">
+              </kendo-grid-column>
+              <!-- <kendo-grid-column [width]="40" title='{{"nameatbirth" | translate}}' >
               <ng-template kendoGridCellTemplate let-dataItem let-idx="rowIndex">
                   <mat-checkbox style="margin-left: 6px;" name="checkboxname-{{idx}}" id="checkboxid-{{idx}}"  [(ngModel)]="dataItem.Nameatbirth" type="checkbox"
                   [checked]="dataItem.Nameatbirth" (change)="isNameatbirthSelected($event,rowIndex)"> </mat-checkbox>
@@ -543,17 +580,18 @@
               </ng-template>
           </kendo-grid-column> -->
 
-          <kendo-grid-column field="Nameatbirth" title='{{"nameatbirth" | translate}}' [width]="60">
-            <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
-              <mat-checkbox [checked]="dataItem.Nameatbirth" (change)="isNameatbirthSelected($event,rowIndex)" id="">
-              </mat-checkbox>
-            </ng-template>
-          </kendo-grid-column>
+              <kendo-grid-column field="Nameatbirth" title='{{"nameatbirth" | translate}}' [width]="60">
+                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                  <mat-checkbox [checked]="dataItem.Nameatbirth" (change)="isNameatbirthSelected($event,rowIndex)"
+                    id="">
+                  </mat-checkbox>
+                </ng-template>
+              </kendo-grid-column>
 
-          </kendo-grid>
-        </div>
+            </kendo-grid>
+          </div>
 
-        <!-- <div class="row ps-1">
+          <!-- <div class="row ps-1">
             <div class="formDivider formDividerpatreg2">
               <strong class="formTitle">{{"akanames" | translate}}</strong>
             </div>
@@ -674,16 +712,18 @@
           </div>
         </mat-tab>
         <mat-tab [label]="'antibodies' | translate" *ngIf="!isAmendPatient && !CPOrderEntry && !MBOrderEntry">
-          <antibodies [PatientIdentifiedAntibody]="ObjPatient.PatientIdentifiedAntibody" (getAntibody)="AntibodyValue($event)"></antibodies>
+          <antibodies [PatientIdentifiedAntibody]="ObjPatient.PatientIdentifiedAntibody"
+            (getAntibody)="AntibodyValue($event)"></antibodies>
 
         </mat-tab>
-        <mat-tab  [label]="'patientnote' | translate" *ngIf="!isAmendPatient && !isAntibody && hidetab">
+        <mat-tab [label]="'patientnote' | translate" *ngIf="!isAmendPatient && !isAntibody && hidetab">
 
-          <patientnotepad [IsFromOrderEntry]="true" (DirtyCheck)="PatnotepadDirtyCheck($event)" (PatnoteObj)="AssignPatObj($event)" [PatNotes]="ObjPatient"></patientnotepad>
+          <patientnotepad [IsFromOrderEntry]="true" (DirtyCheck)="PatnotepadDirtyCheck($event)"
+            (PatnoteObj)="AssignPatObj($event)" [PatNotes]="ObjPatient"></patientnotepad>
 
 
 
-                <!-- <div class="row ps-1 pt-2" >
+          <!-- <div class="row ps-1 pt-2" >
                          <div class="col-6 col-md-6 col-sm-6" *ngIf="patientflag">
                         <div class="formDivider">
                           <strong class="formTitle colorHeader">{{"patientflags" | translate}}</strong>
@@ -752,7 +792,7 @@
                    <div class="col-2  ">
                     <label>{{"patientrequirements" | translate}}</label>
                     <div> -->
-                      <!-- <ul
+          <!-- <ul
                         style="height:124px;overflow:hidden;width:165px;padding-left:0;padding-bottom:0;padding-right:0;"
                         class="pt-2">
                         <li *ngFor="let srl of SpecialrequirementList">
@@ -765,8 +805,8 @@
                         </li>
                       </ul> -->
 
-                      <!--ChangedforDropdown-->
-                      <!-- <mat-form-field class="w-100">
+          <!--ChangedforDropdown-->
+          <!-- <mat-form-field class="w-100">
                         <mat-select disableOptionCentering  placeholder= "{{'splReq' | translate}}" (selectionChange)="SpecialRequirementClickNew(ObjPatient.SpecialrequirementDropdown)" id="SplReqDrop" name="drSplReq"
                            [(ngModel)]="ObjPatient.SpecialrequirementDropdown"
                           class="md-select-extension" multiple>
@@ -776,7 +816,7 @@
                       </mat-form-field>
                     </div>
                   </div> -->
-                  <!-- <div class="col-12  " style="padding-top: 20px;"   *ngIf="notepad">
+          <!-- <div class="col-12  " style="padding-top: 20px;"   *ngIf="notepad">
                   <mat-tab-group (selectedTabChange)="onClickTab($event)" *ngIf="Index == 3 || (CPOrderEntry || MBOrderEntry)" [selectedIndex]="0" >
                     <mat-tab [label]="'generalnotes' | translate">
 
@@ -804,7 +844,7 @@
                                   </mat-select>
                               </mat-form-field>
                               </div>-->
-                              <!-- <div class="col-md-4">
+          <!-- <div class="col-md-4">
                                 <div class="row ps-1 marginTop45px flex">
                                   <div>
                                   <button *ngIf="usercanadd" (click)="OnAddNotesClick('Generalnotes')" mat-raised-button id="Gadd" color="primary" matTooltip="{{'add/update'| translate}}" [matTooltipPosition]="'below'">
@@ -822,7 +862,7 @@
                                   <img *ngIf="delete" (click)="OnClearNotesClick()" class="cursor height-10px paddingLeft20px"
                                      matTooltip="{{'btnClear'| translate}}" [matTooltipPosition]="'below'"
                                     src="./assets/img/Cancel.png" />-->
-                                <!-- </div>
+          <!-- </div>
                               </div>
                             </div>
                             <div class="row ps-1 pt-2 " id="NotesGrid">
@@ -852,7 +892,7 @@
                                     <span title="{{item.Type}}">{{item.PatientNotesTypeExpansion}}</span>
                                   </ng-template>
                                 </kendo-grid-column>-->
-                                <!-- <kendo-grid-column field="DateTimeString" title='{{"datetime" | translate}}' [width]="40">
+          <!-- <kendo-grid-column field="DateTimeString" title='{{"datetime" | translate}}' [width]="40">
                                   <ng-template kendoGridHeaderTemplate let-column let-columnIndex="columnIndex">
                                     <span title='{{"datetime"|translate}}'> {{"datetime"|translate}}</span>
                                   </ng-template>
@@ -911,7 +951,7 @@
                               name="orderlrn" [(ngModel)]="OrderLRN" [disabled]="DisabledInput">
                           </mat-form-field>
                         </div> -->
-                        <!--<div class="col-md-3">
+          <!--<div class="col-md-3">
                           <mat-form-field style="padding-top:35px" class="w-100">
                             <mat-select required disableOptionCentering [(ngModel)]="Type"  [placeholder]="'Type' | translate"  name="type"  class="">
                                 <div *ngFor="let Type of NotepadType">
@@ -921,7 +961,7 @@
                             </mat-select>
                         </mat-form-field>
                         </div>-->
-                        <!-- <div class="col-md-4">
+          <!-- <div class="col-md-4">
                           <div class="row ps-1 marginTop45px">
                             <div class="col-lg-3 col-md-6">
                             <button *ngIf="usercanadd" (click)="OnAddNotesClick('Specialrequirementnotes')" mat-raised-button id="Sadd" color="primary" matTooltip="{{'add/update'| translate}}" [matTooltipPosition]="'below'">
@@ -933,13 +973,13 @@
                               {{"btnClear" | translate}}
                            </button>
                            </div> -->
-                           <!--<img *ngIf="usercanadd" (click)="OnAddNotesClick('Specialrequirementnotes')" class="cursor height-10px"
+          <!--<img *ngIf="usercanadd" (click)="OnAddNotesClick('Specialrequirementnotes')" class="cursor height-10px"
                               matTooltip="{{'add/update'| translate}}" [matTooltipPosition]="'below'"
                               src="./assets/img/Plus.png" />
                             <img *ngIf="delete" (click)="OnClearNotesClick()" class="cursor height-10px paddingLeft20px"
                                matTooltip="{{'btnClear'| translate}}" [matTooltipPosition]="'below'"
                               src="./assets/img/Cancel.png" />-->
-                          <!-- </div>
+          <!-- </div>
                         </div>
                       </div>
                       <div class="row ps-1 pt-2 " id="splNotesGrid">
@@ -962,7 +1002,7 @@
                               <span class="whitespace" title="{{item.OrderLRN}}">{{item.OrderLRN}}</span>
                             </ng-template>
                           </kendo-grid-column> -->
-                          <!--<kendo-grid-column field="Type" title='{{"Type" | translate}}' [width]="40">
+          <!--<kendo-grid-column field="Type" title='{{"Type" | translate}}' [width]="40">
                             <ng-template kendoGridHeaderTemplate let-column let-columnIndex="columnIndex">
                               <span title='{{"Type"|translate}}'> {{"Type"|translate}}</span>
                             </ng-template>
@@ -970,7 +1010,7 @@
                               <span title="{{item.Type}}">{{item.PatientNotesTypeExpansion}}</span>
                             </ng-template>
                           </kendo-grid-column>-->
-                          <!-- <kendo-grid-column field="DateTimeString" title='{{"datetime" | translate}}' [width]="40">
+          <!-- <kendo-grid-column field="DateTimeString" title='{{"datetime" | translate}}' [width]="40">
                             <ng-template kendoGridHeaderTemplate let-column let-columnIndex="columnIndex">
                               <span title='{{"datetime"|translate}}'> {{"datetime"|translate}}</span>
                             </ng-template>
@@ -1011,9 +1051,9 @@
   </form>
 </div>
 
-  <div [ngClass]="{'d-none': !isWardUser }" class="center">
+<div [ngClass]="{'d-none': !isWardUser }" class="center">
   <i style="font-size:20px;" class="mdi mdi-clipboard-text-multiple-outline"></i>
-  <div style="text-align: center; color:#545454;" >{{"patientlistloadshere"|translate}}...</div>
+  <div style="text-align: center; color:#545454;">{{"patientlistloadshere"|translate}}...</div>
 </div>
 
 <!-- <ConfirmDialog [sDialogMessage]="sdialogmessage" (save)="DialogOutput($event)" (cancel)="DialogOutput($event)"></ConfirmDialog> -->
